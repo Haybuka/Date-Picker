@@ -12,6 +12,7 @@
             margin: 0;
         }
 
+
         .date {
             display: flex;
             justify-content: left;
@@ -55,6 +56,14 @@
         input {
             cursor: pointer;
         }
+
+        .error {
+            display: inline-block;
+            padding: 5px;
+            background: linear-gradient(to right, blue, red);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
     </style>
 </head>
 
@@ -87,20 +96,22 @@
                 <p>Fri</p>
                 <input type="radio" name="day" id="friday" class="js-days">
             </label>
-            <label>
+            <!-- <label>
                 <p>Sat</p>
                 <input type="radio" name="day" id="saturday" class="js-days" disabled>
             </label>
             <label>
                 <p>Sun</p>
                 <input type="radio" name="day" id="sunday" class="js-days" disabled>
-            </label>
+            </label> -->
         </div>
     </form>
+    <p class="js--error error">Saturday and Sunday not considered</p>
     <script>
         // querySelect the js Date and the date picker
         let days = document.querySelectorAll('.js-days');
         let jsDate = document.querySelector('.js-date');
+        let errorDay = document.querySelector('.js--error');
         // days is a nodelist,but we need an array,hence a conversion
         let weekdays = Array.from(days)
         // the change event listener is added to the date element,as we need an updated date once a user clicks
@@ -126,7 +137,7 @@
                     }
                 }
             } catch (error) {
-                console.log('bad date')
+                errorDay.innerHTML = " Saturday and Sunday not considered"
             }
 
         })
