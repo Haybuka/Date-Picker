@@ -41,7 +41,7 @@
 
         form {
             border: 1px solid red;
-            width: 400px;
+            width: 300px;
             border-radius: 15px;
             margin: 10px auto;
         }
@@ -87,20 +87,36 @@
                 <p>Fri</p>
                 <input type="radio" name="day" id="friday" class="js-days">
             </label>
+            <label>
+                <p>Sat</p>
+                <input type="radio" name="day" id="saturday" class="js-days" disabled>
+            </label>
+            <label>
+                <p>Sun</p>
+                <input type="radio" name="day" id="sunday" class="js-days" disabled>
+            </label>
         </div>
     </form>
     <script>
+        // querySelect the js Date and the date picker
         let days = document.querySelectorAll('.js-days');
         let jsDate = document.querySelector('.js-date');
+        // days is a nodelist,but we need an array,hence a conversion
         let weekdays = Array.from(days)
+        // the change event listener is added to the date element,as we need an updated date once a user clicks
         jsDate.addEventListener('change', function () {
+            //make a week array,which the date(returned as a number) can be refenced against
             let week = ['sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+            //the calender value is driectly gotten,split for easy use as a number and  then parsed
             let parsedDate = Date.parse(jsDate.value.split('-').join(' '))
+            //the value gotten is then used as the new date query
             let newDate = new Date(parsedDate)
-            console.log(newDate)
+            //after getting our day,we then referece the week,from the array of week already specified
             let pickedDay = newDate.getDay();
             let selectDay = week[pickedDay].toLowerCase();
-            console.log(newDate.getMonth())
+            console.log(newDate.getMonth());
+            //the loop here crossrefence the date and the radio button already setup
+            //  try catch block for days not specified
             try {
                 for (let i = 0; i <= weekdays.length; i++) {
                     if (weekdays[i].id === selectDay) {
