@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        .date {
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            padding: 10px 5px;
+            border-radius: 10px;
+            background-color: red;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .date p {
+            margin-right: 10px;
+            color: #fff;
+        }
+
+        input[type="date"] {
+            border: 0;
+            border-bottom: 1px solid #fff;
+            padding: 5px;
+            background-color: transparent;
+            color: #fff;
+            font-weight: bold;
+            outline: none;
+            cursor: pointer;
+        }
+
+        form {
+            border: 1px solid red;
+            width: 400px;
+            border-radius: 15px;
+            margin: 10px auto;
+        }
+
+        .radio {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 5px;
+        }
+
+        input {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="">
+        <label class="date">
+            <p>Date : </p>
+            <input type="date" name="" class="js-date">
+        </label>
+        <div class="radio">
+            <!-- js-days clss allows for easy iteration,
+            since the elements in the class will be treated as an array to be iterated on -->
+            <label>
+                <p>Mon</p>
+                <input type="radio" name="day" id="monday" class="js-days">
+            </label>
+            <label>
+                <p>Tue</p>
+                <input type="radio" name="day" id="tuesday" class="js-days">
+            </label>
+            <label>
+                <p>Wed</p>
+                <input type="radio" name="day" id="wednesday" class="js-days">
+            </label>
+            <label>
+                <p>Thur</p>
+                <input type="radio" name="day" id="thursday" class="js-days">
+            </label>
+            <label>
+                <p>Fri</p>
+                <input type="radio" name="day" id="friday" class="js-days">
+            </label>
+        </div>
+    </form>
+    <script>
+        let days = document.querySelectorAll('.js-days');
+        let jsDate = document.querySelector('.js-date');
+        let weekdays = Array.from(days)
+        jsDate.addEventListener('change', function () {
+            let week = ['sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+            let parsedDate = Date.parse(jsDate.value.split('-').join(' '))
+            let newDate = new Date(parsedDate)
+            console.log(newDate)
+            let pickedDay = newDate.getDay();
+            let selectDay = week[pickedDay].toLowerCase();
+            console.log(newDate.getMonth())
+            try {
+                for (let i = 0; i <= weekdays.length; i++) {
+                    if (weekdays[i].id === selectDay) {
+                        console.log(`${weekdays[i].id} is selected day ${selectDay}`)
+                        weekdays[i].checked = true
+                        break;
+                    }
+                }
+            } catch (error) {
+                console.log('bad date')
+            }
+
+        })
+    </script>
+</body>
+
+</html>
